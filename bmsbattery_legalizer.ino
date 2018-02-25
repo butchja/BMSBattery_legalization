@@ -19,10 +19,12 @@
 // *                                                                                      *
 // ****************************************************************************************
 
+#define CRC_POLYNOM       26 // exclusive OR after bytes has been xor'ed could be everything, default is 2
+#define MAX_PACKET_SIZE   23
+
 unsigned long time;
-uint8_t buf[23];       // buffer for S-LCD3 to S12SN communication protocol
+uint8_t buf[MAX_PACKET_SIZE]; // buffer for S-LCD3 to S12SN communication protocol
 uint8_t bufi = 0;      // index for S-LCD3 to S12SN buffer
-#define crc_polynom 26 // exclusive OR after bytes has been xor'ed could be everything, default is 2
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -50,6 +52,10 @@ void loop() {
       if (packet_needs_mod()) modify_packet();
       send_packet();
       bufi = 0;
+    } else {
+      // we need to reset bufi in case of an error (e.g. wrong CRC)
+      if (bufi >= MAX_PACKET_SIZE)
+        bufi = 0;
     }
   }
 }
@@ -95,7 +101,7 @@ void modify_packet() { // change bytes here
 
 uint8_t packet_is_valid() {
   // we check the packetsize here
-  if (bufi == 13 || bufi == 23)
+  if (bufi == 13 || bufi == MAX_PACKET_SIZE)
   {
     if (buf[5]==gen_crc()) return 1; // check CRC
   }
