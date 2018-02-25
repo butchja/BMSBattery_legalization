@@ -14,4 +14,4 @@ TODO:
 - reducing power output furthermore or limiting displayed power
 
 Creator
- butchja@arcor.de
+ butchja
