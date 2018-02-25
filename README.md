@@ -1,8 +1,8 @@
 # BMSBattery_legalization
 
 Legalization Firmware for STM32F103C8 Arduino Nano Style Boards
-for BMSBattery S-LCD3 and SN12SNN 72V Sine Motor Driver*
-* might be compatible to others
+for BMSBattery S-LCD3 and SN12SNN 72V Sine Motor Driver
+(might be compatible to others)
 
 Allows limiting to maximum legal speeds of 25km/h
 Reduces the thumb throttle to 6km/h (traction aid only)
